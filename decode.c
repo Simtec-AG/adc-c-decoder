@@ -1,13 +1,11 @@
 /*
- * 2013-2014 (c) Simtec AG
+ * 2013-2021 (c) Simtec AG
  * All rights reserved
- * Rev. 2, 12.12.2013
- * Rev. 3, 17.10.2014, some comments added
  * 
- * Decodes some important PSS-8 and ADP-5.5 data messages.
+ * Decodes some important swiss-airdata messages.
  * Status messages not implemented yet.
- * Use a RS485 to USB converter as described at:
- * http://www.swiss-airdata.com/blog/?p=13
+ * Use a RS485 to USB converter. Contact Simtec 
+ * for more details or for a preconfigured and assembled cable.
  * 
  * User must set correct serial device.
  * 
@@ -136,8 +134,8 @@ static int serial_read(byte buffer[], int size)
 static void print_help()
 {
     printf("\n");
-    printf("A simple terminal program to print PSS-8 and ADP-5.5 messages\n");
-    printf("(c) 2013, Simtec Buergel AG\n");
+    printf("A simple terminal program to print simtec air-data messages\n");
+    printf("(c) 2021, Simtec AG\n");
     printf("\n");
 }
 
