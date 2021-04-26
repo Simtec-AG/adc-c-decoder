@@ -1,12 +1,10 @@
 # Makefile
 
-PATH	    := C:\MinGW\bin
+#PATH	    := C:\MinGW\bin
 
 CC	    := gcc
 ARCH	    := -m32
 EXE	    := decode.exe
-
-#SERIAL_DEBUG := -DCONFIG_DEBUG_ON
 
 # ------------------------------------------------------------------------------
 
@@ -16,9 +14,8 @@ default: compile
 #
 CFLAGS      :=  -c -std=gnu99 ${ARCH} \
 		-Wall ${SERIAL_DEBUG} \
-		-O3 -g0 \
-		-DCONFIG_WINDOWS
-
+		-O3 -g0 
+		
 # Linker flags (-s: strip)
 LFLAGS      :=  -s
 
