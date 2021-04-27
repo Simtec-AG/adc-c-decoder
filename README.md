@@ -1,13 +1,13 @@
 
-  # Swiss Air Data C Decoder
+  # Swiss Air-Data C Decoder
   
 ## Overview
 
-This small C software decodes air data frame sent by a module from Simtec AG <https://www.swiss-airdata.com/> and print the result to the terminal. It has be designed to run on a windows computer and requires the usage a RS485 to USB converter. Contact Simtec for more details or for a preconfigured and assembled cable.
+This small C software decodes messages sent over the RS-485 interface by an air data computer from Simtec AG <https://www.swiss-airdata.com/> and print the result on the terminal. It has been designed to run on a Windows computer and requires the usage of a RS485 to USB converter. Contact Simtec for more details or for a preconfigured and assembled cable.
 
-It is compatible with the RS-485 data interface of the following products: ADES-12, ADP-5.5, PSS8 and PMH air data computer. Details about the format used to send the air data can be found in devices *Interface Control Document*.
+This software is compatible with the RS-485 data interface of the following products: ADS-12, AOA-16, ADP-5.5, PSS8 and PMH air data computer. Details about the format used to send the air data can be found in devices *Interface Control Document*.
 
-Here is an example of what is the decoder output to the the serial terminal:
+The following example shows the output of the decoder to the terminal:
 
 ```
 Qc   =       0.1 [Pa]  (valid)
@@ -47,11 +47,11 @@ SAT  =      24.2 [°C]  (valid)
 TAT  =      24.2 [°C]  (valid)
 ```
 
-**Warning: Only data packet are parsed. Status and commands such as QNH setting and sensor zeroing are ignored by this extension** 
+**Warning: Only data messages are parsed. Status and commands such as QNH setting and sensor zeroing are ignored by this software** 
 
  ## Notes
 
-Tested with the toolchain mingw64 <http://mingw-w64.org/doku.php>, gcc version 10.2.0 (GCC) on windows 10.
+Compiled with gcc version 10.2.0 (GCC) on windows 10 with mingw64 <http://mingw-w64.org/doku.php>.
 
 Example code only. No error handling. Use at own risk.
 
