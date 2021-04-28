@@ -49,6 +49,19 @@ TAT  =      24.2 [°C]  (valid)
 
 **Warning: Only data messages are parsed. Status and commands such as QNH setting and sensor zeroing are ignored by this software** 
 
+ ## Usage
+```
+decode serial-port [baudrate]
+```
+Arguments:
+- _serial-port_: Serial port on which the swiss air-data computer is connected. 
+- _baudrate_: Optional argument setting the baudrate which the air-data computer uses. By default 230400 is used.
+
+Example calls:
+```
+decode COM3
+decode COM7 115200
+```
  ## Notes
 
 Compiled with gcc version 10.2.0 (GCC) on windows 10 with mingw64 <http://mingw-w64.org/doku.php>.
