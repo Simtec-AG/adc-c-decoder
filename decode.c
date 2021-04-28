@@ -52,23 +52,23 @@
 static HANDLE hCom = INVALID_HANDLE_VALUE;
 
 /* Opens and initializes the serial interface. */
-static bool serial_open()
+static bool serial_open(int baudrate, const char com_port[])
 {
     bool fSuccess;
     DCB dcb;
 
-    hCom = CreateFile(DEVICE, GENERIC_READ | GENERIC_WRITE,
+    hCom = CreateFile(com_port, GENERIC_READ | GENERIC_WRITE,
             0, NULL, OPEN_EXISTING, 0, 0/*NULL*/);
 
     if (hCom == INVALID_HANDLE_VALUE) {
-        printf("Cannot open %s\n", DEVICE);
+        printf("Cannot open %s\n", com_port);
         return FALSE;
     }
 
     COMMTIMEOUTS timeouts;
     fSuccess = GetCommTimeouts(hCom, &timeouts);
     if (!fSuccess) {
-        printf("Cannot get timeouts on %s\n", DEVICE);
+        printf("Cannot get timeouts on %s\n", com_port);
         return FALSE;
     }
 
@@ -80,24 +80,24 @@ static bool serial_open()
     timeouts.WriteTotalTimeoutConstant = 0;
     fSuccess = SetCommTimeouts(hCom, &timeouts);
     if (!fSuccess) {
-        printf("Cannot set timeouts on %s\n", DEVICE);
+        printf("Cannot set timeouts on %s\n", com_port);
         return FALSE;
     }
 
     fSuccess = GetCommState(hCom, &dcb);
     if (!fSuccess) {
-        printf("Cannot comm-state on %s\n", DEVICE);
+        printf("Cannot comm-state on %s\n", com_port);
         return FALSE;
     }
 
-    dcb.BaudRate = BAUDRATE;
+    dcb.BaudRate = baudrate;
     dcb.ByteSize = 8;
     dcb.Parity = NOPARITY;
     dcb.StopBits = ONESTOPBIT;
     dcb.fRtsControl = RTS_CONTROL_DISABLE;
     fSuccess = SetCommState(hCom, &dcb);
     if (!fSuccess) {
-        printf("Cannot set comm-state on %s\n", DEVICE);
+        printf("Cannot set comm-state on %s\n", com_port);
         return FALSE;
     }
 
@@ -124,7 +124,7 @@ static int serial_read(byte buffer[], int size)
     BOOL fSucess = ReadFile(hCom, buffer, size, &cnt, NULL);
 
     if (!fSucess) {
-        printf("Cannot read from serial %s\n", DEVICE);
+        printf("Cannot read from requested serial port\n");
         return 0;
     }
 
@@ -209,20 +209,20 @@ static void read_and_decode_and_print_message()
     byte buf = 0;
     byte msg[11];
 
-	// Process as long a user does not hit any key
+    // Process as long a user does not hit any key
     while ((pos < 11)) {
         if (serial_read(&buf, 1) == 1) {
             if (buf == SOH) {
-				// start a new message if a SOH is found
+                // start a new message if a SOH is found
                 pos = 0;
                 msg[pos++] = buf;
             } else if (buf == CR && pos == 10) {
-				// full data message collected, decode and print now
+                // full data message collected, decode and print now
                 msg[pos++] = buf;
                 decode_and_print_message(msg);
                 break;
             } else if(pos != 0) {
-				// add data to message
+                // add data to message
                 msg[pos++] = buf;
             }
 
@@ -239,7 +239,7 @@ int main(int argc, char** argv)
 {
     print_help();
 
-    if (serial_open()) {
+    if (serial_open(BAUDRATE, DEVICE)) {
 
         printf("Starting on %s @ B%d\n", DEVICE, BAUDRATE);
         printf("Hit any key to exit\n\n");
