@@ -31,7 +31,7 @@
 #include <winbase.h>
 
 // Baud-rate
-#define BAUDRATE 230400
+#define DEFAULT_BAUDRATE 230400
 
 // Start of header
 #define SOH 0x01
@@ -233,13 +233,19 @@ int main(int argc, char** argv)
 {
     print_help();
 
+    int baudrate = DEFAULT_BAUDRATE;
+    if(argc > 2)
+    {
+        baudrate = strtol(argv[2], NULL, 10);
+    }
+
     if(argc > 1) {
         char com_port[32] = "\\\\.\\";
         strcat(com_port,argv[1]);
 
-        if (serial_open(BAUDRATE, com_port)) {
+        if (serial_open(baudrate, com_port)) {
 
-            printf("Starting on %s @ B%d\n", com_port, BAUDRATE);
+            printf("Starting on %s @ B%d\n", com_port, baudrate);
             printf("Hit any key to exit\n\n");
 
             while (!kbhit()) {
