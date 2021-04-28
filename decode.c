@@ -221,7 +221,7 @@ static void read_and_decode_and_print_message()
                 msg[pos++] = buf;
                 decode_and_print_message(msg);
                 break;
-            } else {
+            } else if(pos != 0) {
 				// add data to message
                 msg[pos++] = buf;
             }
