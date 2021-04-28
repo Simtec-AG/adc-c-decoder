@@ -7,8 +7,6 @@
  * Use a RS485 to USB converter. Contact Simtec 
  * for more details or for a preconfigured and assembled cable.
  * 
- * User must set correct serial device.
- * 
  * Compiled and tested with MinGW (gcc)
  * http://sourceforge.net/projects/mingwbuilds/
  *
@@ -31,10 +29,6 @@
 #include <stdbool.h>
 #include <windows.h>
 #include <winbase.h>
-
-// Replace with COM1, COM2, etc
-// \\.\CNCB0 is used by com0com
-#define DEVICE "\\\\.\\CNCB0"
 
 // Baud-rate
 #define BAUDRATE 230400
@@ -239,17 +233,26 @@ int main(int argc, char** argv)
 {
     print_help();
 
-    if (serial_open(BAUDRATE, DEVICE)) {
+    if(argc > 1) {
+        char com_port[32] = "\\\\.\\";
+        strcat(com_port,argv[1]);
 
-        printf("Starting on %s @ B%d\n", DEVICE, BAUDRATE);
-        printf("Hit any key to exit\n\n");
+        if (serial_open(BAUDRATE, com_port)) {
 
-        while (!kbhit()) {
-            read_and_decode_and_print_message();
+            printf("Starting on %s @ B%d\n", com_port, BAUDRATE);
+            printf("Hit any key to exit\n\n");
+
+            while (!kbhit()) {
+                read_and_decode_and_print_message();
+            }
+
+            serial_close();
         }
-
-        serial_close();
+        return EXIT_SUCCESS;
     }
-
-    return EXIT_SUCCESS;
+    else {
+        printf("Error, The serial port needs to be passed as an argument! \n");
+        printf("E.g.: COM1, COM2, ... \n\n");
+        return EXIT_FAILURE;
+    }
 }
