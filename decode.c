@@ -210,7 +210,7 @@ static void read_and_decode_and_print_message()
     byte msg[11];
 
 	// Process as long a user does not hit any key
-    while ((pos < 11) && !kbhit()) {
+    while ((pos < 11)) {
         if (serial_read(&buf, 1) == 1) {
             if (buf == SOH) {
 				// start a new message if a SOH is found
