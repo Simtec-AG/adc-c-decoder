@@ -18,6 +18,7 @@ Hp   =     329.4 [m]   (valid)
 Mach =     0.001 [-]   (valid)
 SAT  =      24.2 [°C]  (valid)
 TAT  =      24.2 [°C]  (valid)
+General status = 0x0000
 
 Qc   =       0.2 [Pa]  (valid)
 Ps   =   97430.9 [Pa]  (valid)
@@ -27,6 +28,7 @@ Hp   =     329.3 [m]   (valid)
 Mach =     0.002 [-]   (valid)
 SAT  =      24.2 [°C]  (valid)
 TAT  =      24.2 [°C]  (valid)
+General status = 0x0000
 
 Qc   =       0.1 [Pa]  (valid)
 Ps   =   97431.3 [Pa]  (valid)
@@ -36,6 +38,7 @@ Hp   =     329.3 [m]   (valid)
 Mach =     0.001 [-]   (valid)
 SAT  =      24.2 [°C]  (valid)
 TAT  =      24.2 [°C]  (valid)
+General status = 0x0000
 
 Qc   =       0.1 [Pa]  (valid)
 Ps   =   97431.0 [Pa]  (valid)
@@ -45,6 +48,7 @@ Hp   =     329.3 [m]   (valid)
 Mach =     0.002 [-]   (valid)
 SAT  =      24.2 [°C]  (valid)
 TAT  =      24.2 [°C]  (valid)
+General status = 0x0000
 ```
 
 **Warning: Only data messages are parsed. Status and commands such as QNH setting and sensor zeroing are ignored by this software** 
