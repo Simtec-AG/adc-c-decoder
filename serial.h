@@ -20,43 +20,43 @@
 #include <stdint.h>
 #include <windows.h>
 
-/** @brief structure of an air-data computer */
+/** @brief structure of a serial port */
 typedef struct
 {
     char com_port[32];
     uint32_t baudrate;
-    HANDLE hCom;
-} adc_t;
+    HANDLE windows_handle;
+} serial_port_t;
 
 /**
- * @brief Open and initialize an air data serial interface.
+ * @brief Open and initialize a serial interface.
  *
- * @param[in, out]      adc     Air data computer that we want to open.
+ * @param[in, out]  serial      Serial port that shall be opened.
  *
  * @return EXIT_FAILURE if the stream to the airdata computer couldnt be opened correctly,
  * EXIT_SUCCESS otherwise.
  */
-int32_t serial_open(adc_t *adc);
+int32_t serial_open(serial_port_t *serial);
 
 /**
- * @brief Close the serial interface of an air data computer.
+ * @brief Close a serial interface.
  *
- * @param[in,out]       adc   Air data computer to close.
+ * @param[in,out]   serial     Serial port that shall be closed.
  *
  * @return EXIT_FAILURE if the stream to the airdata computer couldnt be closed correctly,
  * EXIT_SUCCESS otherwise.
  */
-int32_t serial_close(adc_t *adc);
+int32_t serial_close(serial_port_t *serial);
 
 /**
- * @brief Read a byte received by an air data computer.
+ * @brief Read a byte received through a serial port.
  * @note A call to the function serial_open() shall have been done before calling this function
  *
- * @param[in,out]   adc         Pointer to the air-data-computer returned by the function adc_open()
- * @param[out]      data        Pointer to the variable that will contain the read data.
+ * @param[in,out]   serial      Pointer to the serial port returned by the function serial_open()
+ * @param[out]      data        Pointer to the variable that will contain the read character.
  * @return EXIT_FAILURE if no new character has been received by the air data computer, 
  * EXIT_SUCCESS otherwise.
  */
-int32_t serial_get_data(adc_t *adc, char *data);
+int32_t serial_get_data(serial_port_t *serial, char *data);
 
 #endif

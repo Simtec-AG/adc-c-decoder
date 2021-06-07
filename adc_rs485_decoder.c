@@ -3,7 +3,7 @@
 * Company Confidential
 */
 
-#include "rs485_decoder.h"
+#include "adc_rs485_decoder.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -145,7 +145,7 @@ static rs485_msg_type_t rs485_decode_data(uint8_t msg[], air_data_t *data)
  * @param[out]  htr_st  Pointer to an air data heater status that will contain the decoded air data.
  * @return RS485_ERROR if there was an error decoding the message, the type of status otherwise.
  */
-static rs485_msg_type_t rs485_decode_status(uint8_t msg[], ad_gen_status_t *gen_st, htr_status_t *htr_st)
+static rs485_msg_type_t rs485_decode_status(uint8_t msg[], adc_gen_status_t *gen_st, htr_status_t *htr_st)
 {
     uint8_t label = msg[1] & 0x0F;
     uint8_t soh = msg[0];
@@ -182,35 +182,35 @@ static rs485_msg_type_t rs485_decode_status(uint8_t msg[], ad_gen_status_t *gen_
  * @param[out]  parsed_msg      Pointer that will contain the decoded air data message.
  * @return void
  */
-static void rs485_decode_msg(uint8_t raw_msg[], uint8_t raw_msg_length, rs485_message_t *parsed_msg)
+static void rs485_decode_msg(uint8_t raw_msg[], uint8_t raw_msg_length, adc_rs485_msg_t *parsed_msg)
 {
-    parsed_msg->message_type = RS485_ERROR;
+    parsed_msg->msg_type = RS485_ERROR;
 
     if (raw_msg_length == 11)
     {
-        parsed_msg->message_type = rs485_decode_data(raw_msg, &(parsed_msg->air_data));
+        parsed_msg->msg_type = rs485_decode_data(raw_msg, &(parsed_msg->air_data));
     }
     else if (raw_msg_length == 7)
     {
-        parsed_msg->message_type = rs485_decode_status(raw_msg, &(parsed_msg->gen_status), &(parsed_msg->htr_status));
+        parsed_msg->msg_type = rs485_decode_status(raw_msg, &(parsed_msg->gen_status), &(parsed_msg->htr_status));
     }
     return;
 }
 
-rs485_message_t rs485_decode(char raw_data)
+adc_rs485_msg_t adc_rs485_decode(char raw_data)
 {
     static uint8_t buffer[MAX_BUFFER_LENGTH] = {0};
     static uint8_t pos = 0;
 
-    rs485_message_t returned_message;
-    returned_message.message_type = RS485_ERROR;
+    adc_rs485_msg_t returned_message;
+    returned_message.msg_type = RS485_ERROR;
 
     if ((raw_data == SOH_1) || (raw_data == SOH_2) || (raw_data == SOH_3) || (raw_data == SOH_5))
     {
         // A SOH marks the beggining of a message
         buffer[0] = (uint8_t)raw_data;
         pos = 1;
-        returned_message.message_type = RS485_PENDING;
+        returned_message.msg_type = RS485_PENDING;
     }
     else if ((pos > 0) && (pos < MAX_BUFFER_LENGTH))
     {
@@ -227,7 +227,7 @@ rs485_message_t rs485_decode(char raw_data)
         {
             // Current message is not totally received
             pos++;
-            returned_message.message_type = RS485_PENDING;
+            returned_message.msg_type = RS485_PENDING;
         }
     }
 

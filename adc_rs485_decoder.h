@@ -31,7 +31,7 @@ typedef enum
     FLAG_INVALID = 5
 } flag_t;
 
-/** @brief Type of data that can be returned by the air-data computer*/
+/** @brief Type of data that can be returned by the air data computer*/
 typedef enum
 {
     RS485_QC,            /**< Impact pressure */
@@ -107,9 +107,9 @@ typedef union
     };
 
     uint16_t number;
-} ad_gen_status_t;
+} adc_gen_status_t;
 
-/** @brief Mode in which an heater of an air data can be */
+/** @brief Mode of the heater of an air data computer */
 typedef enum
 {
     HEATER_MODE_OFF = 0,
@@ -131,43 +131,41 @@ typedef union
     uint16_t number;
 } htr_status_t;
 
-/** @brief Possible value returned by the rs485 decoder */
+/** @brief Type of message that could be returned by the air data rs485 decoder */
 typedef enum
 {
     RS485_PENDING = 0,             /**< No complete message has been decoded yet*/
     RS485_RETURNED_DATA = 1,       /**< One complete data message has been decoded */
     RS485_RETURNED_STATUS_GEN = 2, /**< One general status message has been decoded */
     RS485_RETURNED_STATUS_HTR = 3, /**< One heater status message has been decoded */
-    RS485_ERROR = 4                /**< One error happened during the decoding of the message */
+    RS485_ERROR = 4                /**< An error happened during the decoding of the message */
 } rs485_msg_type_t;
 
-/** @brief Decoded RS485 air-data message sent by a swiss air-data message*/
+/** @brief Decoded RS485 air data message sent by a swiss air-data computer*/
 typedef struct
 {
-    rs485_msg_type_t message_type;
+    rs485_msg_type_t msg_type;
     union
     {
         air_data_t air_data;
-        ad_gen_status_t gen_status;
+        adc_gen_status_t gen_status;
         htr_status_t htr_status;
     };
     
-}rs485_message_t;
+}adc_rs485_msg_t;
 
 /**
- * @brief Decodes one byte transmit by an air data computer.
+ * @brief Decodes a message transmitted by a Swiss air-data computer through RS485.
  * This function shall be called everytime a new byte has been received.
- * If the byte is the last of a message, the type of message decoded will be returned and the
- * corresponding variable will contains the decoded message.
- * If the message is not fully decoded yet, the message type will be RS485_PENDING.
- * If there was an error decoding the message, the message type will RS485_ERROR.
- * If the message was completely decoded correctly the message will contain the actual type of the 
- * message.
+ * If the byte is the last of a message and this message was decoded successfully, an rs485 air data 
+ * message will be returned.
+ * If the message is not fully decoded yet, the rs485 message type will be RS485_PENDING.
+ * If there was an error decoding the message, the rs485 message type will RS485_ERROR.
  *
  * @param[in]   raw_data    Raw 8 bits data received by an air data computer.
 *
  * @return Decoded air data message.
  */
-rs485_message_t rs485_decode(char raw_data);
+adc_rs485_msg_t adc_rs485_decode(char raw_data);
 
 #endif

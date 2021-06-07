@@ -4,7 +4,7 @@
 */
 
 #include "print_msg.h"
-#include "rs485_decoder.h"
+#include "adc_rs485_decoder.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
@@ -86,7 +86,7 @@ static void print_air_data(air_data_t *air_data)
     }
 }
 
-static void print_gen_status(ad_gen_status_t *gen_status)
+static void print_gen_status(adc_gen_status_t *gen_status)
 {
     printf("General status = 0x%04X \n\n", gen_status->number);
 }
@@ -96,12 +96,12 @@ static void print_htr_status(htr_status_t *htr_status)
     printf("Heater status = 0x%04X \n\n", htr_status->number);
 }
 
-void print_message(rs485_message_t *msg)
+void print_message(adc_rs485_msg_t *msg)
 {
-    switch (msg->message_type)
+    switch (msg->msg_type)
     {
     case RS485_ERROR:
-        printf("\nError decoding the rs485 message! \n\n");
+        printf("\nError decoding the message! \n\n");
         break;
     case RS485_RETURNED_DATA:
         print_air_data(&(msg->air_data));

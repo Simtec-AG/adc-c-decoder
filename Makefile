@@ -19,7 +19,7 @@ CFLAGS      :=  -c -std=gnu99 ${ARCH} \
 # Linker flags (-s: strip)
 LFLAGS      :=  -s
 
-SOURCES	    := main.c rs485_decoder.c serial.c print_msg.c
+SOURCES	    := main.c adc_rs485_decoder.c serial.c print_msg.c
 
 OBJECTS := ${SOURCES:.c=.o}
 OBJECTS := ${OBJECTS:.S=.o}
