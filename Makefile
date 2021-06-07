@@ -15,11 +15,11 @@ default: compile
 CFLAGS      :=  -c -std=gnu99 ${ARCH} \
 		-Wall ${SERIAL_DEBUG} \
 		-O3 -g0 
-		
+
 # Linker flags (-s: strip)
 LFLAGS      :=  -s
 
-SOURCES	    := decode.c
+SOURCES	    := main.c adc_rs485_decoder.c serial.c print_msg.c
 
 OBJECTS := ${SOURCES:.c=.o}
 OBJECTS := ${OBJECTS:.S=.o}
