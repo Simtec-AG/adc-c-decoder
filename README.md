@@ -52,6 +52,15 @@ General status = 0x0000
 ```
 
  ## Usage
+
+ ### Compilation
+Simply execute the following command:
+
+```
+make compile
+```
+ ### Execution
+ Launch the following command:
 ```
 decode serial-port [baudrate]
 ```
@@ -64,6 +73,13 @@ Example calls:
 decode COM3
 decode COM7 115200
 ```
+
+ ## Integration
+
+This software has been developed with the goal to ease its reusability as much as possible. 
+
+The core decoder _adc_rs485_decoder.c_ and _adc_rs485_decoder.h_ has been implemented to run on almost any hardware. It only requires to have the C standard librairies _stdint_, _stdbool_ and _stdlib_. You can very well take those two files and integrate them in your own code to run on a flight control computer for instance.
+
  ## Notes
 
 Compiled with gcc version 10.2.0 (GCC) on windows 10 with mingw64 <http://mingw-w64.org/doku.php>.
