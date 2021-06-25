@@ -51,8 +51,6 @@ TAT  =      24.2 [°C]  (valid)
 General status = 0x0000
 ```
 
-**Warning: Only data messages are parsed. Status and commands such as QNH setting and sensor zeroing are ignored by this software** 
-
  ## Usage
 ```
 decode serial-port [baudrate]
@@ -70,7 +68,7 @@ decode COM7 115200
 
 Compiled with gcc version 10.2.0 (GCC) on windows 10 with mingw64 <http://mingw-w64.org/doku.php>.
 
-Example code only. No error handling. Use at own risk.
+Example code only. Use at own risk.
 
 This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
 even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
