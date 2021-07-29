@@ -4,6 +4,7 @@
 */
 
 #include "adc_rs485_decoder.h"
+#include <errno.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
