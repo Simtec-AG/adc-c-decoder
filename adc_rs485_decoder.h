@@ -31,7 +31,7 @@ typedef enum
     FLAG_INVALID = 5
 } flag_t;
 
-/** @brief Type of data that can be returned by the air data computer*/
+/** @brief Type of data that can be returned by the air data computer */
 typedef enum
 {
     RS485_QC,            /**< Impact pressure */
@@ -155,7 +155,7 @@ typedef struct
 }adc_rs485_msg_t;
 
 /**
- * @brief Decodes a message transmitted by a Swiss air-data computer through RS485.
+ * @brief Decodes a message transmitted by a swiss air-data computer through RS485.
  * This function shall be called everytime a new byte has been received.
  * If the byte is the last of a message and this message was decoded successfully, an rs485 air data 
  * message will be returned.

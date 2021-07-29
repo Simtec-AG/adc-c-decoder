@@ -19,9 +19,8 @@
 
 #include "adc_rs485_decoder.h"
 
-
 /**
- * @brief Print one message received by an air-data computer. This message shall already be decoded!
+ * @brief Print one message received by an air data computer. This message shall already be decoded!
  *
  * @param[in]   msg     Decoded air-data massage sent by a swiss air-data computer.
 *

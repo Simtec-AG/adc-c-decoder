@@ -2,9 +2,10 @@
  * 2013-2021 (c) Simtec AG
  * All rights reserved
  * 
- * Decodes some important swiss air-data messages.
- * Use a RS485 to USB converter. Contact Simtec 
- * for more details or for a preconfigured and assembled cable.
+ * Read a serial port on a Windows machine and print to the terminal the messages sent by a swiss 
+ * air-data computer through RS485.
+ * Use a RS485 to USB converter. Contact Simtec for more details or for a preconfigured 
+ * and assembled cable.
  * 
  * Compiled and tested with MinGW (gcc)
  * http://sourceforge.net/projects/mingwbuilds/
@@ -28,9 +29,8 @@
 #include <string.h>
 #include <stdint.h>
 
-// Baud-rate
+/** @brief Default baudrate at which the serial port is read */
 #define DEFAULT_BAUDRATE 230400
-
 
 static void print_help()
 {
@@ -39,8 +39,6 @@ static void print_help()
     printf("(c) 2021, Simtec AG\n");
     printf("\n");
 }
-
-
 
 static void decode_and_print_message(char data)
 {

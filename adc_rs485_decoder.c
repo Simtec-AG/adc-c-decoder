@@ -1,5 +1,5 @@
 /*
-* © 2020 Simtec AG. All rights reserved.
+* © 2021 Simtec AG. All rights reserved.
 * Company Confidential
 */
 
@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-/** @brief start of header of a data packet */
+/** @brief Start of header of a data packet */
 #define SOH_1 ((char)0x01)
 #define SOH_2 ((char)0x02)
 #define SOH_3 ((char)0x03)
@@ -20,9 +20,10 @@
 /** @brief Maximum size in byte of the buffer needed to decode one message */
 #define MAX_BUFFER_LENGTH 12
 
+/** @brief Number of possible data type per type of Start Of Header */
 #define NUMBER_OF_DATA_PER_SOH 15
 
-/** @brief  air data label values for SOH_1 message*/
+/** @brief  Air data label values for SOH_1 message */
 static const data_type_t SOH1_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QC,
@@ -40,7 +41,7 @@ static const data_type_t SOH1_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_DATA_NOT_VALID,
     [14] = RS485_QNH};
 
-/** @brief  air data label values for SOH_2 message*/
+/** @brief  Air data label values for SOH_2 message */
 static const data_type_t SOH2_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_CR,
@@ -58,7 +59,7 @@ static const data_type_t SOH2_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_HTR,
     [14] = RS485_CUR};
 
-/** @brief  air data label values for SOH_3 message*/
+/** @brief  Air data label values for SOH_3 message */
 static const data_type_t SOH3_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QCRAW,
@@ -76,10 +77,10 @@ static const data_type_t SOH3_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_DATA_NOT_VALID,
     [14] = RS485_DATA_NOT_VALID};
 
-/** @brief  air data label values for SOH_4 message*/
+/** @brief  Air data label values for SOH_4 message */
 static const data_type_t SOH4_LABEL[NUMBER_OF_DATA_PER_SOH] = {RS485_DATA_NOT_VALID};
 
-/** @brief  air data label values for SOH_5 message*/
+/** @brief  Air data label values for SOH_5 message */
 static const data_type_t SOH5_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QC_U,
@@ -102,7 +103,7 @@ static const data_type_t *soh_label_map[5] = {SOH1_LABEL, SOH2_LABEL, SOH3_LABEL
 /** 
  * @brief Decodes an air data message.
  * @note The message length shall be 11 bytes long.
- * @param[in]   msg     Data received by the air-data computer
+ * @param[in]   msg     Data received by the air data computer.
  * @param[out]  data    Pointer to an air data that will contain the decoded air data.
  * @return RS485_ERROR if there was an error decoding the message, RS485_RETURNED_DATA otherwise.
  */
@@ -140,7 +141,7 @@ static rs485_msg_type_t rs485_decode_data(uint8_t msg[], air_data_t *data)
 /** 
  * @brief Decodes an air data status message.
  * @note The message length shall be 7 bytes long.
- * @param[in]   msg     Data received by the air-data computer
+ * @param[in]   msg     Data received by the air data computer.
  * @param[out]  gen_st  Pointer to an air data general status that will contain the decoded air data.
  * @param[out]  htr_st  Pointer to an air data heater status that will contain the decoded air data.
  * @return RS485_ERROR if there was an error decoding the message, the type of status otherwise.
@@ -176,9 +177,9 @@ static rs485_msg_type_t rs485_decode_status(uint8_t msg[], adc_gen_status_t *gen
 
 /** 
  * @brief Decodes an entire message received from an air data computer. Call the good decoder 
- * depending on the message type
- * @param[in]   raw_msg         Data received by the air-data computer.
- * @param[in]   raw_msg_length  Type of data that we are waiting.
+ * depending on the message type.
+ * @param[in]   raw_msg         Data received by the air data computer.
+ * @param[in]   raw_msg_length  Length of the message received.
  * @param[out]  parsed_msg      Pointer that will contain the decoded air data message.
  * @return void
  */
