@@ -110,7 +110,6 @@ void print_message(adc_rs485_msg_t *msg)
         print_gen_status(&(msg->gen_status));
         break;
     case RS485_RETURNED_STATUS_HTR:
-        printf("Heater status returned! \n\n");
         print_htr_status(&(msg->htr_status));
         break;
     default:
