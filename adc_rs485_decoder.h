@@ -53,8 +53,8 @@ typedef enum
     RS485_DTR,           /**< Heater duty rate */
     RS485_HTR,           /**< Heater temperature */
     RS485_CUR,           /**< Heater current */
-    RS485_QCRAW,         /**< Uncorracted impact pressure */
-    RS485_PSRAW,         /**< Uncorracted static pressure */
+    RS485_QCRAW,         /**< Uncorrected impact pressure */
+    RS485_PSRAW,         /**< Uncorrected static pressure */
     RS485_DPAOA,         /**< Delta pressure AoA */
     RS485_DPAOS,         /**< Delta pressure AoS */
     RS485_IAT,           /**< Indicate air temperature */
@@ -109,7 +109,7 @@ typedef union
     uint16_t number;
 } adc_gen_status_t;
 
-/** @brief Mode of the heater of an air data computer */
+/** @brief Mode of the air data boom heater controlled by an air data computer */
 typedef enum
 {
     HEATER_MODE_OFF = 0,
@@ -117,7 +117,7 @@ typedef enum
     HEATER_MODE_AUTO = 2
 } heater_mode_t;
 
-/** @brief Heater status decoded, received by an air data computer */
+/** @brief Air data boom heater status decoded, received by an air data computer */
 typedef union
 {
     struct
@@ -160,7 +160,7 @@ typedef struct
  * If the byte is the last of a message and this message was decoded successfully, an rs485 air data 
  * message will be returned.
  * If the message is not fully decoded yet, the rs485 message type will be RS485_PENDING.
- * If there was an error decoding the message, the rs485 message type will RS485_ERROR.
+ * If there was an error decoding the message, the rs485 message type will be RS485_ERROR.
  *
  * @param[in]   raw_data    Raw 8 bits data received by an air data computer.
 *
