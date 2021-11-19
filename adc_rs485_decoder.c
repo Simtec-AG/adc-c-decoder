@@ -4,7 +4,6 @@
 */
 
 #include "adc_rs485_decoder.h"
-#include <errno.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -103,6 +102,30 @@ static const data_type_t SOH5_LABEL[NUMBER_OF_LABELS_PER_SOH] = {
 static const data_type_t *soh_label_map[5] = {SOH1_LABEL, SOH2_LABEL, SOH3_LABEL, SOH4_LABEL, SOH5_LABEL};
 
 /** 
+ * Verify if the string contains only hexadecimal characters encoded in ASCII.
+ * @param[in]   string  String containing an encoded float number.
+ * @param[in]   string  String containing an encoded float number.
+ * @return TRUE is the string is valid, FALSE otherwise
+ */
+static bool rs485_is_string_hexa(char string[], uint8_t string_length)
+{
+    bool float_valid = true;
+
+    for(uint8_t i = 0; i < string_length; i++)
+    {
+        // All characters should be between '0' and '9', or between 'A' and 'F'
+        if(((string[i] < '0') || (string[i] > '9')) &&
+           ((string[i] < 'A') || (string[i] > 'F')))
+           {
+               // The character is not valid, exit immediately
+               float_valid = false;
+               break;
+           }
+    }
+    return float_valid;
+}
+
+/** 
  * Decodes an air data message.
  * @note The message length shall be 11 bytes long.
  * @param[in]   msg     Data received by the air data computer.
@@ -123,16 +146,18 @@ static rs485_msg_type_t rs485_decode_data(uint8_t msg[], air_data_t *data)
         {
             // Mark end of string and convert ASCII-hex to integer
             msg[10] = '\0';
-            // Cast integer-bits to float
-            errno = 0;
-            int32_t bits = strtoll((char *)&msg[2], NULL, 16);
 
-            if (errno == 0)
+            // Verify that the data bits are well composed only of hexadecimal characters
+            if(rs485_is_string_hexa((char *)&msg[2], 8))
             {
-                data->flag = (flag_t)(msg[1] >> 4) & 0x07u;
-                data->type = type;
+                // Cast integer-bits to float
+                int32_t bits = strtoll((char *)&msg[2], NULL, 16);
                 float *value_ptr = (float *)&bits;
                 data->value = *value_ptr;
+
+                // No error, the flag and type can now be updated
+                data->flag = (flag_t)(msg[1] >> 4) & 0x07u;
+                data->type = type;
                 returned_value = RS485_RETURNED_DATA;
             }
         }
@@ -159,19 +184,21 @@ static rs485_msg_type_t rs485_decode_status(uint8_t msg[], adc_gen_status_t *gen
         // Mark end of string and convert ASCII-hex to integer
         msg[6] = '\0';
 
-        // Cast integer-bits to float
-        errno = 0;
-        int32_t bits = strtol((char *)&msg[2], NULL, 16);
-
-        if ((soh == SOH_1) && (errno == 0))
+        // Verify that the status bits are well composed only of hexadecimal characters
+        if(rs485_is_string_hexa((char *) &msg[2], 4))
         {
-            gen_st->number = bits;
-            returned_value = RS485_RETURNED_STATUS_GEN;
-        }
-        else if ((soh == SOH_2) && (errno == 0))
-        {
-            htr_st->number = bits;
-            returned_value = RS485_RETURNED_STATUS_HTR;
+            // Cast ASCII in integer
+            int32_t bits = strtol((char *)&msg[2], NULL, 16);
+            if (soh == SOH_1)
+            {
+                gen_st->number = bits;
+                returned_value = RS485_RETURNED_STATUS_GEN;
+            }
+            else if (soh == SOH_2)
+            {
+                htr_st->number = bits;
+                returned_value = RS485_RETURNED_STATUS_HTR;
+            }
         }
     }
     return returned_value;
