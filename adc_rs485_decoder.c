@@ -9,22 +9,22 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-/** @brief Start of header of a data packet */
-#define SOH_1 ((char)0x01)
-#define SOH_2 ((char)0x02)
-#define SOH_3 ((char)0x03)
-#define SOH_5 ((char)0x05)
+/** Start of header of a data packet */
+#define SOH_1 ((char)0x01u)
+#define SOH_2 ((char)0x02u)
+#define SOH_3 ((char)0x03u)
+#define SOH_5 ((char)0x05u)
 
-/** @brief Carriage return */
-#define CR ((char)0x0D)
+/** Carriage return */
+#define CR ((char)0x0Du)
 
-/** @brief Maximum size in byte of the buffer needed to decode one message */
+/** Maximum size in byte of the buffer needed to decode one message */
 #define MAX_BUFFER_LENGTH 12
 
-/** @brief Number of possible data type per type of Start Of Header */
+/** Number of possible data type per type of Start Of Header */
 #define NUMBER_OF_DATA_PER_SOH 15
 
-/** @brief  Air data label values for SOH_1 message */
+/** Air data label values for SOH_1 message */
 static const data_type_t SOH1_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QC,
@@ -42,7 +42,7 @@ static const data_type_t SOH1_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_DATA_NOT_VALID,
     [14] = RS485_QNH};
 
-/** @brief  Air data label values for SOH_2 message */
+/** Air data label values for SOH_2 message */
 static const data_type_t SOH2_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_CR,
@@ -60,7 +60,7 @@ static const data_type_t SOH2_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_HTR,
     [14] = RS485_CUR};
 
-/** @brief  Air data label values for SOH_3 message */
+/** Air data label values for SOH_3 message */
 static const data_type_t SOH3_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QCRAW,
@@ -78,10 +78,10 @@ static const data_type_t SOH3_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_DATA_NOT_VALID,
     [14] = RS485_DATA_NOT_VALID};
 
-/** @brief  Air data label values for SOH_4 message */
+/** Air data label values for SOH_4 message */
 static const data_type_t SOH4_LABEL[NUMBER_OF_DATA_PER_SOH] = {RS485_DATA_NOT_VALID};
 
-/** @brief  Air data label values for SOH_5 message */
+/** Air data label values for SOH_5 message */
 static const data_type_t SOH5_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QC_U,
@@ -102,7 +102,7 @@ static const data_type_t SOH5_LABEL[NUMBER_OF_DATA_PER_SOH] = {
 static const data_type_t *soh_label_map[5] = {SOH1_LABEL, SOH2_LABEL, SOH3_LABEL, SOH4_LABEL, SOH5_LABEL};
 
 /** 
- * @brief Decodes an air data message.
+ * Decodes an air data message.
  * @note The message length shall be 11 bytes long.
  * @param[in]   msg     Data received by the air data computer.
  * @param[out]  data    Pointer to an air data that will contain the decoded air data.
@@ -110,7 +110,7 @@ static const data_type_t *soh_label_map[5] = {SOH1_LABEL, SOH2_LABEL, SOH3_LABEL
  */
 static rs485_msg_type_t rs485_decode_data(uint8_t msg[], air_data_t *data)
 {
-    uint8_t label = msg[1] & 0x0F;
+    uint8_t label = msg[1] & 0x0Fu;
     uint8_t soh = msg[0];
     rs485_msg_type_t returned_value = RS485_ERROR;
 
@@ -128,7 +128,7 @@ static rs485_msg_type_t rs485_decode_data(uint8_t msg[], air_data_t *data)
 
             if (errno == 0)
             {
-                data->flag = (flag_t)(msg[1] >> 4) & 0x07;
+                data->flag = (flag_t)(msg[1] >> 4) & 0x07u;
                 data->type = type;
                 float *value_ptr = (float *)&bits;
                 data->value = *value_ptr;
@@ -140,7 +140,7 @@ static rs485_msg_type_t rs485_decode_data(uint8_t msg[], air_data_t *data)
 }
 
 /** 
- * @brief Decodes an air data status message.
+ * Decodes an air data status message.
  * @note The message length shall be 7 bytes long.
  * @param[in]   msg     Data received by the air data computer.
  * @param[out]  gen_st  Pointer to an air data general status that will contain the decoded air data.
@@ -149,11 +149,11 @@ static rs485_msg_type_t rs485_decode_data(uint8_t msg[], air_data_t *data)
  */
 static rs485_msg_type_t rs485_decode_status(uint8_t msg[], adc_gen_status_t *gen_st, htr_status_t *htr_st)
 {
-    uint8_t label = msg[1] & 0x0F;
+    uint8_t label = msg[1] & 0x0Fu;
     uint8_t soh = msg[0];
     rs485_msg_type_t returned_value = RS485_ERROR;
 
-    if (label == 0xF)
+    if (label == 0xFu)
     {
         // Mark end of string and convert ASCII-hex to integer
         msg[6] = '\0';
@@ -177,7 +177,7 @@ static rs485_msg_type_t rs485_decode_status(uint8_t msg[], adc_gen_status_t *gen
 }
 
 /** 
- * @brief Decodes an entire message received from an air data computer. Call the good decoder 
+ * Decodes an entire message received from an air data computer. Call the good decoder 
  * depending on the message type.
  * @param[in]   raw_msg         Data received by the air data computer.
  * @param[in]   raw_msg_length  Length of the message received.

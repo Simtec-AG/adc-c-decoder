@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdint.h>
 
-/** @brief flag string representation */
+/** Flag string representation */
 static char *flag_str[] = {
     [FLAG_VALID] = "valid",
     [FLAG_RANGE_ABOVE] = "range+",
@@ -20,7 +20,7 @@ static char *flag_str[] = {
 
 static void print_air_data(air_data_t *air_data)
 {
-    const char deg = (char)0xF8;
+    const char deg = (char)0xF8u;
 
     switch (air_data->type)
     {

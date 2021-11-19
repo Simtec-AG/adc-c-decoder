@@ -29,7 +29,7 @@
 #include <string.h>
 #include <stdint.h>
 
-/** @brief Default baudrate at which the serial port is read */
+/** Default baudrate at which the serial port is read */
 #define DEFAULT_BAUDRATE 230400
 
 static void print_help()

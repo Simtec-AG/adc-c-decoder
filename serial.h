@@ -20,7 +20,7 @@
 #include <stdint.h>
 #include <windows.h>
 
-/** @brief structure of a serial port */
+/** Structure of a serial port */
 typedef struct
 {
     char com_port[32];
@@ -29,7 +29,7 @@ typedef struct
 } serial_port_t;
 
 /**
- * @brief Open and initialize a serial interface.
+ * Open and initialize a serial interface.
  *
  * @param[in, out]  serial      Serial port that shall be opened.
  *
@@ -39,7 +39,7 @@ typedef struct
 int32_t serial_open(serial_port_t *serial);
 
 /**
- * @brief Close a serial interface.
+ * Close a serial interface.
  *
  * @param[in,out]   serial     Serial port that shall be closed.
  *
@@ -49,7 +49,7 @@ int32_t serial_open(serial_port_t *serial);
 int32_t serial_close(serial_port_t *serial);
 
 /**
- * @brief Read a byte received through a serial port.
+ * Read a byte received through a serial port.
  * @note A call to the function serial_open() shall have been done before calling this function
  *
  * @param[in,out]   serial      Pointer to the serial port returned by the function serial_open()

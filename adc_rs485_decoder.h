@@ -20,7 +20,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/** @brief Flag returned by the air data computer associated with the a value */
+/** Flag returned by the air data computer associated with the a value */
 typedef enum
 {
     FLAG_VALID = 0,
@@ -31,7 +31,7 @@ typedef enum
     FLAG_INVALID = 5
 } flag_t;
 
-/** @brief Type of data that can be returned by the air data computer */
+/** Type of data that can be returned by the air data computer */
 typedef enum
 {
     RS485_QC,            /**< Impact pressure */
@@ -72,7 +72,7 @@ typedef enum
     RS485_DATA_NOT_VALID /**< The type of data received is not valid */
 } data_type_t;
 
-/** @brief Decoded data sent by an air data computer */
+/** Decoded data sent by an air data computer */
 typedef struct
 {
     data_type_t type;
@@ -80,7 +80,7 @@ typedef struct
     flag_t flag;
 } air_data_t;
 
-/** @brief Mode in which an air data computer can be */
+/** Mode in which an air data computer can be */
 typedef enum
 {
     ADC_MODE_NORMAL = 0,
@@ -88,7 +88,7 @@ typedef enum
     ADC_MODE_CALIBRATION = 2
 } adc_mode_t;
 
-/** @brief General status decoded received by an air data computer */
+/** General status decoded received by an air data computer */
 typedef union
 {
     struct
@@ -112,7 +112,7 @@ typedef union
     uint16_t number;
 } adc_gen_status_t;
 
-/** @brief Mode of the air data boom heater controlled by an air data computer */
+/** Mode of the air data boom heater controlled by an air data computer */
 typedef enum
 {
     HEATER_MODE_OFF = 0,
@@ -120,7 +120,7 @@ typedef enum
     HEATER_MODE_AUTO = 2
 } heater_mode_t;
 
-/** @brief Air data boom heater status decoded, received by an air data computer */
+/** Air data boom heater status decoded, received by an air data computer */
 typedef union
 {
     struct
@@ -134,7 +134,7 @@ typedef union
     uint16_t number;
 } htr_status_t;
 
-/** @brief Type of message that could be returned by the air data rs485 decoder */
+/** Type of message that could be returned by the air data rs485 decoder */
 typedef enum
 {
     RS485_PENDING = 0,             /**< No complete message has been decoded yet*/
@@ -144,7 +144,7 @@ typedef enum
     RS485_ERROR = 4                /**< An error happened during the decoding of the message */
 } rs485_msg_type_t;
 
-/** @brief Decoded RS485 air data message sent by a swiss air-data computer*/
+/** Decoded RS485 air data message sent by a swiss air-data computer*/
 typedef struct
 {
     rs485_msg_type_t msg_type;
@@ -158,7 +158,7 @@ typedef struct
 }adc_rs485_msg_t;
 
 /**
- * @brief Decodes a message transmitted by a swiss air-data computer through RS485.
+ * Decodes a message transmitted by a swiss air-data computer through RS485.
  * 
  * This function shall be called everytime a new byte has been received.
  * If the byte is the last of a message and this message was decoded successfully, an rs485 air data 
