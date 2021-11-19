@@ -109,7 +109,7 @@ static const data_type_t *soh_label_map[5] = {SOH1_LABEL, SOH2_LABEL, SOH3_LABEL
  */
 static bool rs485_is_string_hexa(char string[], uint8_t string_length)
 {
-    bool float_valid = true;
+    bool is_hex_valid = true;
 
     for(uint8_t i = 0; i < string_length; i++)
     {
@@ -118,11 +118,11 @@ static bool rs485_is_string_hexa(char string[], uint8_t string_length)
            ((string[i] < 'A') || (string[i] > 'F')))
            {
                // The character is not valid, exit immediately
-               float_valid = false;
+               is_hex_valid = false;
                break;
            }
     }
-    return float_valid;
+    return is_hex_valid;
 }
 
 /** 
@@ -224,7 +224,6 @@ static void rs485_decode_msg(uint8_t raw_msg[], uint8_t raw_msg_length, adc_rs48
     {
         parsed_msg->msg_type = rs485_decode_status(raw_msg, &(parsed_msg->gen_status), &(parsed_msg->htr_status));
     }
-    return;
 }
 
 adc_rs485_msg_t adc_rs485_decode(char raw_data)
