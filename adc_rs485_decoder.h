@@ -41,9 +41,10 @@ typedef enum
     RS485_CAS,           /**< Calibrate airspeed */
     RS485_TAS,           /**< True airspeed */
     RS485_HP,            /**< Pressure altitude,
-                         /!\ the meaning of this label depends on the product and configuration.
-                         When HBaro is available it will always reference the standard 
-                         seal level pressure (1013.25 hPa), otherwise it will reference the QNH setting*/
+                         /!\ The meaning of this label (HP) depends on the product and configuration.
+                         When HBaro is available it will always reference the standard seal level 
+                         pressure (1013.25 hPa). 
+                         If not available, it will reference the QNH setting. */
     RS485_MACH,          /**< Mach Number */
     RS485_SAT,           /**< Static air temperature */
     RS485_TAT,           /**< Total air temperature */

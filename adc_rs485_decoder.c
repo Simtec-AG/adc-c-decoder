@@ -21,11 +21,11 @@
 /** Maximum size in byte of the buffer needed to decode one message */
 #define MAX_BUFFER_LENGTH 12
 
-/** Number of possible data type per type of Start Of Header */
-#define NUMBER_OF_DATA_PER_SOH 15
+/** Maximum number of label ID per Start Of Header */
+#define NUMBER_OF_LABELS_PER_SOH 15
 
-/** Air data label values for SOH_1 message */
-static const data_type_t SOH1_LABEL[NUMBER_OF_DATA_PER_SOH] = {
+/** Air data label ID meaning for SOH_1 message */
+static const data_type_t SOH1_LABEL[NUMBER_OF_LABELS_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QC,
     [2] = RS485_PS,
@@ -42,8 +42,8 @@ static const data_type_t SOH1_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_DATA_NOT_VALID,
     [14] = RS485_QNH};
 
-/** Air data label values for SOH_2 message */
-static const data_type_t SOH2_LABEL[NUMBER_OF_DATA_PER_SOH] = {
+/** Air data label ID meaning for SOH_2 message */
+static const data_type_t SOH2_LABEL[NUMBER_OF_LABELS_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_CR,
     [2] = RS485_PT,
@@ -60,8 +60,8 @@ static const data_type_t SOH2_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_HTR,
     [14] = RS485_CUR};
 
-/** Air data label values for SOH_3 message */
-static const data_type_t SOH3_LABEL[NUMBER_OF_DATA_PER_SOH] = {
+/** Air data label ID meaning for SOH_3 message */
+static const data_type_t SOH3_LABEL[NUMBER_OF_LABELS_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QCRAW,
     [2] = RS485_PSRAW,
@@ -78,11 +78,11 @@ static const data_type_t SOH3_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_DATA_NOT_VALID,
     [14] = RS485_DATA_NOT_VALID};
 
-/** Air data label values for SOH_4 message */
-static const data_type_t SOH4_LABEL[NUMBER_OF_DATA_PER_SOH] = {RS485_DATA_NOT_VALID};
+/** Air data label ID meaning for SOH_4 message */
+static const data_type_t SOH4_LABEL[NUMBER_OF_LABELS_PER_SOH] = {RS485_DATA_NOT_VALID};
 
-/** Air data label values for SOH_5 message */
-static const data_type_t SOH5_LABEL[NUMBER_OF_DATA_PER_SOH] = {
+/** Air data label ID meaning for SOH_5 message */
+static const data_type_t SOH5_LABEL[NUMBER_OF_LABELS_PER_SOH] = {
     [0] = RS485_DATA_NOT_VALID,
     [1] = RS485_QC_U,
     [2] = RS485_PS_U,
@@ -99,6 +99,7 @@ static const data_type_t SOH5_LABEL[NUMBER_OF_DATA_PER_SOH] = {
     [13] = RS485_DATA_NOT_VALID,
     [14] = RS485_DATA_NOT_VALID};
 
+/** Map all labels ber SOH in a 2D table */
 static const data_type_t *soh_label_map[5] = {SOH1_LABEL, SOH2_LABEL, SOH3_LABEL, SOH4_LABEL, SOH5_LABEL};
 
 /** 
@@ -114,7 +115,7 @@ static rs485_msg_type_t rs485_decode_data(uint8_t msg[], air_data_t *data)
     uint8_t soh = msg[0];
     rs485_msg_type_t returned_value = RS485_ERROR;
 
-    if ((soh >= 1) && (soh <= SOH_5) && (label < NUMBER_OF_DATA_PER_SOH))
+    if ((soh >= SOH_1) && (soh <= SOH_5) && (label < NUMBER_OF_LABELS_PER_SOH))
     {
         data_type_t type = soh_label_map[soh - 1][label];
 
