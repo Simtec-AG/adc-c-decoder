@@ -71,10 +71,10 @@ static const data_type_t SOH3_LABEL[NUMBER_OF_LABELS_PER_SOH] = {
     [7] = RS485_DATA_NOT_VALID,
     [8] = RS485_DATA_NOT_VALID,
     [9] = RS485_DATA_NOT_VALID,
-    [10] = RS485_DATA_NOT_VALID,
-    [11] = RS485_DATA_NOT_VALID,
-    [12] = RS485_DATA_NOT_VALID,
-    [13] = RS485_DATA_NOT_VALID,
+    [10] = RS485_STQC,
+    [11] = RS485_STPS,
+    [12] = RS485_STAOA,
+    [13] = RS485_STAOS,
     [14] = RS485_DATA_NOT_VALID};
 
 /** Air data label ID meaning for SOH_4 message */

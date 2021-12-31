@@ -63,6 +63,10 @@ typedef enum
     RS485_DPAOS,         /**< Delta pressure AoS */
     RS485_IAT,           /**< Indicate air temperature */
     RS485_BAT,           /**< Base temperature */
+    RS485_STQC,          /**< Qc sensor temperature */
+    RS485_STPS,          /**< Ps sensor temperature */
+    RS485_STAOA,         /**< AoA sensor temperature */
+    RS485_STAOS,         /**< AoS sensor temperature */
     RS485_QC_U,          /**< User selected unit, impact pressure */
     RS485_PS_U,          /**< User selected unit, static pressure */
     RS485_HP_U,          /**< User selected unit, pressure altitude */

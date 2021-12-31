@@ -99,6 +99,18 @@ static void print_air_data(air_data_t *air_data)
     case RS485_BAT:
         printf("BAT  = %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
         break;
+    case RS485_STQC:
+        printf("ST Qc= %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
+        break;
+    case RS485_STPS:
+        printf("ST Ps= %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
+        break;
+    case RS485_STAOA:
+        printf("ST AoA= %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
+        break;
+    case RS485_STAOS:
+        printf("ST AoS= %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
+        break;
     case RS485_QC_U:
         printf("QC_u = %9.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
         break;
