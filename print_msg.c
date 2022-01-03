@@ -112,7 +112,7 @@ static void print_air_data(air_data_t *air_data)
         printf("ST AoS= %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
         break;
     case RS485_QC_U:
-        printf("QC_u = %9.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
+        printf("QC_U = %9.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
         break;
     case RS485_PS_U:
         printf("PS_U = %9.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
