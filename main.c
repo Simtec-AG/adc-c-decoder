@@ -32,11 +32,31 @@
 /** Default baudrate at which the serial port is read */
 #define DEFAULT_BAUDRATE 230400
 
-static void print_help()
+static void print_header()
 {
     printf("\n");
     printf("A simple terminal program to print simtec air-data messages\n");
-    printf("(c) 2021, Simtec AG\n");
+    printf("(c) 2021 - 2022, Simtec AG\n");
+    printf("\n");
+}
+
+static void print_help()
+{
+    printf("Usage: decode.exe serial-port [baudrate]\n");
+    printf("Print to the terminal all messages received by an simtec air data computer. \n");
+    printf("Example: decode.exe COM7 115200\n");
+    printf("\n");
+    printf("Arguments: \n");
+    printf("  serial-port: Serial port on which the air data computer is connected. \n");
+    printf("  baudrate:    Set the baudrate that the air data computer uses. By default, 230400 is used. \n");
+    printf("\n");
+    printf("\n");
+    printf("Other usage: decode.exe --help\n");
+    printf("  Print this message");
+    printf("\n");
+    printf("\n");
+    printf("See https://github.com/Simtec-AG/adc-c-decoder for more informations \n");
+    printf("\n");
     printf("\n");
 }
 
@@ -55,7 +75,7 @@ static void decode_and_print_message(char data)
 int main(int argc, char **argv)
 {
     int32_t return_code = EXIT_FAILURE;
-    print_help();
+    print_header();
     serial_port_t adc_serial =
         {
             .baudrate = DEFAULT_BAUDRATE,
@@ -67,7 +87,11 @@ int main(int argc, char **argv)
         adc_serial.baudrate = strtol(argv[2], NULL, 10);
     }
 
-    if (argc > 1)
+    if ((argc > 1) && ((strcmp(argv[1], "--help") == 0) || (strcmp(argv[1], "-help") == 0)))
+    {
+        print_help();
+    }
+    else if (argc > 1)
     {
         strcat(adc_serial.com_port, argv[1]);
 
@@ -94,6 +118,7 @@ int main(int argc, char **argv)
     }
     else
     {
+        print_help();
         printf("Error, The serial port needs to be passed as an argument! \n");
         printf("E.g.: COM1, COM2, ... \n\n");
     }

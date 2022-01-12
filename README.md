@@ -65,7 +65,7 @@ Launch the following command:
 decode serial-port [baudrate]
 ```
 Arguments:
-- _serial-port_: Serial port on which the Swiss air-data computer is connected. 
+- _serial-port_: Serial port on which the air data computer is connected. 
 - _baudrate_: Optional argument setting the baudrate which the air data computer uses. By default 230400 is used.
 
 Example calls:
