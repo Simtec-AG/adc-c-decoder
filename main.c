@@ -55,7 +55,7 @@ static void print_help()
     printf("  Print this message");
     printf("\n");
     printf("\n");
-    printf("See https://github.com/Simtec-AG/adc-c-decoder for more informations \n");
+    printf("See https://github.com/Simtec-AG/adc-c-decoder for more information \n");
     printf("\n");
     printf("\n");
 }
