@@ -70,7 +70,7 @@ static void print_air_data(air_data_t *air_data)
         printf("TAS RATE = %5.1f [m/s] (%s)\n", air_data->value, flag_str[air_data->flag]);
         break;
     case RS485_HBARO:
-        printf("HBARO= %9.1f [m]   (%s)\n", air_data->value, flag_str[air_data->flag]);
+        printf("HBARO = %8.1f [m]   (%s)\n", air_data->value, flag_str[air_data->flag]);
         break;
     case RS485_DTR:
         printf("DTR  = %9.2f [-] (%s)\n", air_data->value, flag_str[air_data->flag]);
@@ -106,10 +106,10 @@ static void print_air_data(air_data_t *air_data)
         printf("ST Ps= %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
         break;
     case RS485_STAOA:
-        printf("ST AoA= %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
+        printf("ST AoA = %7.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
         break;
     case RS485_STAOS:
-        printf("ST AoS= %9.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
+        printf("ST AoS = %7.1f [%cC]  (%s)\n", air_data->value, deg, flag_str[air_data->flag]);
         break;
     case RS485_QC_U:
         printf("QC_U = %9.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
@@ -121,7 +121,7 @@ static void print_air_data(air_data_t *air_data)
         printf("HP_U = %9.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
         break;
     case RS485_HBARO_U:
-        printf("HBARO_U=%9.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
+        printf("HBARO_U=%8.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
         break;
     case RS485_CAS_U:
         printf("CAS_U =%9.1f [?]   (%s)\n", air_data->value, flag_str[air_data->flag]);
