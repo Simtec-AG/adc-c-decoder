@@ -2,7 +2,7 @@
   
 ## Overview
 
-This small C software decodes data messages sent over the RS-485 interface by air data computers and pressure modules developed by Simtec AG <https://www.swiss-airdata.com>. The decoded data labels are printed onto the terminal. The software has been designed to run on a Windows computer. The computer requires a half-duplex (2-wire) RS-485 serial interface. Alternatively an USB-to-RS485 converter can be used.
+This small C software decodes data messages sent over the RS-485 interface by air data computers and pressure modules developed by Simtec AG <https://www.swiss-airdata.com>. The decoded data labels are printed onto the terminal. The software has been designed to run on a Windows computer. The computer requires a RS-485 serial interface. Alternatively an USB-to-RS485 converter can be used.
 
 The software decodes data labels from the _ADC-10_, _ADS-12_, _AOA-16_, _ADP-5.5_, _PSS-8_ and _PMH_ air data computers and pressure modules. Details about the format can be found in the _Interface Control Document (ICD)_ of the respective device.
 
