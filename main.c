@@ -1,5 +1,5 @@
 /*
- * 2013-2021 (c) Simtec AG
+ * 2023 (c) Simtec AG
  * All rights reserved
  * 
  * Read a serial port on a Windows machine and print to the terminal the messages sent by a swiss 

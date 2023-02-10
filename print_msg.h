@@ -1,7 +1,7 @@
 /**
 * This module print to the terminal a decoded message received by a swiss air-data computer.
 *
-* © 2021 Simtec AG. All rights reserved.
+* © 2023 Simtec AG. All rights reserved.
 * Company Confidential
 *
 * Compiled and tested with gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
