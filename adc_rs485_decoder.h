@@ -1,5 +1,5 @@
 /**
-* This module decodes messages received by a swiss air-data computer though RS485.
+* This module decodes messages received by a swiss air-data computer through RS485.
 *
 * © 2023 Simtec AG. All rights reserved.
 * Company Confidential
